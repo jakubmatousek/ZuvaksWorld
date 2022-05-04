@@ -3,7 +3,6 @@ from pos import Pos
 
 
 class DangerousTile:
-
     '''trida smrticich policek'''
 
     def __init__(

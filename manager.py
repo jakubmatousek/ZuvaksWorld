@@ -94,6 +94,7 @@ class Manager():
 
     def init_food_worker(self):
         """ funkce spousti paralelni proces v kterem se vypocitavaji pozice nově spwannuteho jidla """
+
         try:
             self.evolution
         except:
@@ -111,6 +112,7 @@ class Manager():
 
     def init_graph_worker(self):
         """ funkce spousti paralelni proces v kterem se zpracovavaji a zvizualizovavaji grafem data o simluaci """
+
         self.graph_update_rate = int(self.conf['fps']/5)
         self.shared_stats_q = mp.Queue() 
         self.graph_output_q = mp.Queue()
@@ -124,7 +126,8 @@ class Manager():
         self.shared_stats_q.put([[0,0,0],[0,0,0]])
 
     def init_graph(self):
-        #vypocet pozice grafu
+        """vypocet pozice grafu"""
+
         pos = (
             int(self.resX - self.graph_size*5/4),
             int(self.resY/2 - self.graph_size/2)
@@ -133,7 +136,8 @@ class Manager():
         
 
     def draw_graph(self):
-        #vykreslit graf na obrazovku
+        """vykreslit graf na obrazovku"""
+
         try:
             self.dispSurface.blit(
                 self.graph_img,
@@ -144,7 +148,8 @@ class Manager():
             pass        
 
     def update_graph(self):
-        #nacist aktualizovany graf od paralelniho procesu a nacist do pameti
+        """nacist aktualizovany graf od paralelniho procesu a nacist do pameti"""
+
         if self.graph_output_q.qsize() > 0:
             new_g = self.graph_output_q.get()
             new_g = PILtoPygameImg(new_g)
@@ -156,7 +161,8 @@ class Manager():
         self.dispSurface.blit(self.lastfpsSprite,((self.resX-70),25))
 
     def startGame(self):
-        # hlavni cyklus simulace
+        """ hlavni cyklus simulace"""
+
         self.clock = p.time.Clock()
         notQuit = True
         p.init()
@@ -184,11 +190,6 @@ class Manager():
                 self.displayFPSCounter()     
             p.display.update()    
             self.clock.tick(self.conf["fps"])    
-
-
-
-
-
 
 if __name__ == "__main__":
     Manager()

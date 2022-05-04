@@ -31,13 +31,13 @@ class Map:
 
     def set_theme_stuff(self,fg,bg,fertile_color,fg_percent_range):
         '''setter vzhledu'''
+        
         self.bg = tuple(bg)
         self.fg = tuple(fg)
         self.fg_percent_range = fg_percent_range
         self.fertile_color = tuple(fertile_color)
 
     def generateMapImg(self):
-
         img = Image.new(mode="RGB", size=(
             self.tilesX*self.tileSize,
             self.tilesY*self.tileSize)

@@ -8,6 +8,7 @@ import numpy as np
 
 class AttackAnimator():
     '''tato trida se stara o animovani boje mezi zuvaky'''
+    
     def __init__(self,display_surface, tile_size, arrow_len = None):
         self.load_config()
         fpr = self.round_sec*self.fps
@@ -52,6 +53,7 @@ class AttackAnimator():
 
     def draw_arrow(self,laser_end):
         '''tato metoda kresli na koncich laseru sipky'''
+
         half_d = int(self.arrow_len/2)
         lp = [laser_end[0] - half_d,
               laser_end[1] + self.arrow_len]
@@ -77,6 +79,7 @@ class AttackAnimator():
 
     def load_config(self):
         '''nacteni konfigurace'''
+
         try:
             with open('conf.json') as json_file:
                 conf = json.load(json_file)
@@ -96,6 +99,7 @@ class AttackAnimator():
 
     def grid_to_pix(self,pos):
         '''prevod pozice dlazdice na pixels'''
+
         return [pos[0]*self.ts,
                pos[1]*self.ts] 
 

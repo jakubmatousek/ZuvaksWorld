@@ -40,6 +40,7 @@ class textEventBanner(pygame.sprite.Sprite):
 
     def setFadeRatio(self,fadeInRatio,fadeOutRatio):
         '''setter a validator'''
+        
         if (fadeInRatio < 0 or fadeInRatio > 1) or (fadeOutRatio < 0 or fadeOutRatio > 1):
             raise ValueError(" ratio not in correct format -> (0;1)")
         self.fadeInRatio = fadeInRatio
@@ -47,6 +48,7 @@ class textEventBanner(pygame.sprite.Sprite):
 
     def updateFontSize(self):
         '''vypocet velikosti fontu pro dany frame'''
+
         if self.currentCycle < self.fadeInCycles:
             fs = ceil(self.incrementByCycle*self.currentCycle)
         elif self.currentCycle >= self.fadeInCycles and self.currentCycle < self.normalSizeCycles+self.fadeInCycles:
@@ -60,6 +62,7 @@ class textEventBanner(pygame.sprite.Sprite):
 
     def nextFrame(self):
         '''prepne objekt do dalsiho frame'''
+
         if self.currentCycle >= self.lengthInCycles:
             self.finished = True
         font = pygame.font.Font('freesansbold.ttf', int(self.currentFontSize))
@@ -77,6 +80,7 @@ class textEventBanner(pygame.sprite.Sprite):
 
     def  __str__(self):
         '''to string metoda (hlavne uzitecna pro debugging ucely)'''
+
         return '%s(%s)' % (
             type(self).__name__,
             ', '.join('%s=%s' % item for item in vars(self).items())
@@ -102,6 +106,7 @@ class imgEventBanner(pygame.sprite.Sprite):
 
     def nextFrame(self,newPos=None):
         '''prehazovani na dalsi frame animace'''
+
         self.currentFrame += 1
         if self.currentFrame >= self.lengthInCycles:
             self.finished = True
@@ -114,6 +119,7 @@ class imgEventBanner(pygame.sprite.Sprite):
 
     def loadConfig(self):
         '''nacteni konfigurace'''
+
         conf = getConfig()
         try:
             self.tileSize = conf['tileSize']
@@ -130,6 +136,7 @@ class imgEventBanner(pygame.sprite.Sprite):
 
 class deathBanner(imgEventBanner):
     ''' potomek tridy imgEventBanner, ktery vizualizuje smrt zuvaka'''
+
     def __init__(self,dispSurface,lengthInCycles,pos):
         self.loadImgPath()
         super().__init__(dispSurface,self.imgPath,lengthInCycles,pos)
@@ -149,6 +156,7 @@ class deathBanner(imgEventBanner):
 
 def getConfig():
     '''validace konfiguracniho souboru'''
+
     try:
         with open('conf.json') as json_file:
                 conf = json.load(json_file)
