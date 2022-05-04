@@ -1,5 +1,4 @@
 from map import Map
-import json
 from customErrors import *
 from Zuvak import Zuvak
 import random
@@ -80,6 +79,7 @@ class Evolution():
 
     def update_and_draw_food(self):
         '''metoda pro neparalelni vykreslovani jidla na mapu'''
+
         for fertileTile in self.map.fertileTiles:
             fPos = [
                 fertileTile.pos.x,
@@ -100,6 +100,7 @@ class Evolution():
     def updateFoodList(self):
         '''metoda ceka na vystup paralelniho pracovnika, ktery
            vypocita pozice noveho jidla. Dale data zpracuje a ulozi do pameti'''
+
         new_f_pos = self.shared_food_list.get()
         new_f_pos = set(tuple(row) for row in new_f_pos) # convert new positions to set
         f_pos_set = set(tuple(row) for row in self.foodPositions)#convert old positions to set
@@ -112,6 +113,7 @@ class Evolution():
     
     def drawFood(self):            
         '''vukreslovani jidla obdrzeneho od paralelniho procesu na mapu'''
+
         for foodPos in self.foodPositions:
             foodObj = self.foodGrid[foodPos[0]][foodPos[1]]
             blitOffset = (foodPos[0]*self.tileSize,foodPos[1]*self.tileSize)
@@ -119,6 +121,7 @@ class Evolution():
 
     def updateEventBanners(self):
         '''Vyvolani aktualizace animaci banneru'''
+
         for banner in self.activeEventBanners:
             if banner.finished:
                 self.activeEventBanners.remove(banner)
@@ -127,6 +130,7 @@ class Evolution():
 
     def initFoodSprites(self):
         '''nacteni obrazku jidla'''
+
         try:
             er = self.conf["food"]['energyRange']
         except:
@@ -143,6 +147,7 @@ class Evolution():
 
     def init_font_stuff(self):
         '''nacteni fontu'''
+
         self.font_fg = (255, 240, 31)
         self.font_bg = (0,0,0)
         self.counter_font = pygame.font.Font('freesansbold.ttf', 15)
@@ -154,10 +159,9 @@ class Evolution():
 
 
     def updateZuvaks(self):
-        '''
-        Tato metoda projede seznamem brouku a za kazdeho udela tah
-        Ma take na starosi detekci prekazek, rozmnozovani brouku atd..
-        '''
+        '''Tato metoda projede seznamem brouku a za kazdeho udela tah
+        Ma take na starosi detekci prekazek, rozmnozovani brouku atd..'''
+
         self.pupulationNumber = 0
         self.bDispTCycles = self.eventBannerDispTime * self.fps
         ts = self.tileSize
@@ -230,7 +234,6 @@ class Evolution():
                     else:    
                         zuvak.activeBanner.setPos(newPos[0]*ts,newPos[1]*ts)
                     
-
                 if zuvak.alive:
                     self.pupulationNumber += 1
                     zuvak.setPos(newPos) 
@@ -285,37 +288,18 @@ class Evolution():
         
     def grid_to_pix(self,pos):
         #prevod jednotek
+
         return [pos[0]*self.tileSize,pos[1]*self.tileSize]
 
     def pix_to_grid(self,pos):
         #prevod jednotek
+
         return [int(pos[0]/self.tileSize),int(pos[1]/self.tileSize)]
 
     def loadConfig(self):
         #Nacteni konfiguraku
+
         self = validate_and_load_conf(self)
-
-
-    possiblePositionsTried = list()
-    def getZuvaksNextMove(self,currentPos,avoidDanger = False):
-        '''Tato metoda vraci nasledujici pozici zuvaka'''
-        self.possiblePositionsTried.clear()
-        while 1: # generate new random position
-            newPos = currentPos.copy()
-            indexOfChangedPos = random.randint(0,1)
-            newPos[indexOfChangedPos] += random.choice([i for i in range(-1,2) if i not in [0]])
-            withinGrid = (newPos[0] >= 0 and newPos[0] < self.tilesX) and (newPos[1] >= 0 and newPos[1] < self.tilesY)
-            if withinGrid:
-                if avoidDanger:
-                    if not (newPos in self.map.deathTiles):
-                        return newPos
-                    else:
-                        if not(newPos in self.possiblePositionsTried):
-                            self.possiblePositionsTried.append(newPos) 
-                        elif len(self.possiblePositionsTried)==4:
-                            return newPos      
-                else:
-                    return newPos    
 
     def get_next_move(self, current_pos, avoid_danger = False):
         wrapping_points = pos_of_wrapping_points_list_format(self.tilesX,self.tilesY,current_pos,1)
@@ -328,6 +312,7 @@ class Evolution():
 
     def find_nearest_oponent(self,pos):
         '''tato metoda hleda zuvakovi protivnika'''
+
         radius = 1
         while True:
             wrapping_points = pos_of_wrapping_points_list_format(self.tilesX, self.tilesY, pos, radius)
@@ -344,6 +329,7 @@ class Evolution():
 
 def getImgOrientation(pos,newPos):
     "funkce vraci cislo v stupnich o kolik se ma sprite zuvaka otocit, kdyz popojde o policko"
+
     diffVector = [
         newPos[0] - pos[0],
         newPos[1]  - pos[1]

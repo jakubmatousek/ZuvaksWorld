@@ -1,5 +1,6 @@
 class NumberPicker():
     '''nastroj pro vyber ciselne hodnoty. Pouzito v hlavnim menu'''
+
     def __init__(self,default, from_n, to_n, step):
         self.current = default
         self.from_n = from_n
@@ -24,6 +25,7 @@ class NumberPicker():
 
 class ResolutionPicker():
     '''nastroj pro vyber rozliseni. Pouzito v hlavnim menu'''
+    
     def __init__(self):
         choices = [
             '750x750',

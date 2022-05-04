@@ -8,6 +8,7 @@ from manager import Manager
 
 class MainMenu():
     '''Hlavni menu'''
+    
     def __init__(self):
         p.init()
         p.display.set_caption('Zuvak\'s world')

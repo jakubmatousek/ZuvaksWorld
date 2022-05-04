@@ -4,13 +4,10 @@ from evolution import Evolution
 import json
 from customErrors import *
 import time
-#from evolutionTasks import *
 from food import Food
 from workers import FoodWorker
 from workers import GraphMaker
-import glob
 from Zuvak import PILtoPygameImg
-import os
 import multiprocessing as mp
 from drawingTools import AttackAnimator
 from weatherStuff import StormAnimator
@@ -43,7 +40,8 @@ class Manager():
 
         
     def loadConfig(self):
-        #nascteni conf souboru
+        """nacteni konfiguracniho souboru"""
+
         try:
             with open('conf.json') as json_file:
                 self.conf = json.load(json_file)
@@ -61,7 +59,8 @@ class Manager():
             raise BadFileFormatError("Config file in bad format, see documentation")
 
     def init_storm(self):
-        #spusteni animace bourky 
+        """spusteni animace bourky"""
+
         sl = self.conf['storm_len']
         sp = self.conf['storm_prob']
         self.storm_animator = StormAnimator(sl,
@@ -72,7 +71,8 @@ class Manager():
          sp)
     
     def init_drawing_tools(self):
-        #spusteni animaci boje
+        """spusteni animaci boje"""
+
         arrow_len = self.conf['theme']['arrow_len']
         if arrow_len <= 3:
             arrow_len = None
@@ -82,7 +82,8 @@ class Manager():
         self.evolution.attack_animator = aa 
 
     def updateFPScounter(self):
-        # tato funkce vykresli hodnotu FPS (frames per second) na obrazovku
+        """ tato funkce vykresli hodnotu FPS (frames per second) na obrazovku"""
+
         bannerTxt = f"FPS: {self.fps}"
         text = self.font.render(bannerTxt , True, (255, 240, 31),(0,0,0))
         self.dispSurface.blit(text,((self.resX-70),25))
@@ -92,7 +93,7 @@ class Manager():
         self.fps = 0
 
     def init_food_worker(self):
-        # funkce spousti paralelni proces v kterem se vypocitavaji pozice nově spwannuteho jidla
+        """ funkce spousti paralelni proces v kterem se vypocitavaji pozice nově spwannuteho jidla """
         try:
             self.evolution
         except:
@@ -109,7 +110,7 @@ class Manager():
         proc.start()
 
     def init_graph_worker(self):
-        # funkce spousti paralelni proces v kterem se zpracovavaji a zvizualizovavaji grafem data o simluaci 
+        """ funkce spousti paralelni proces v kterem se zpracovavaji a zvizualizovavaji grafem data o simluaci """
         self.graph_update_rate = int(self.conf['fps']/5)
         self.shared_stats_q = mp.Queue() 
         self.graph_output_q = mp.Queue()
@@ -151,15 +152,6 @@ class Manager():
             self.graph_img = new_g
  
 
-    def init_zuvaks_worker(self):
-        try:
-            self.evolution
-        except:
-            m = 'must init evolution obj, before initing zuvaks worker!'
-            raise logicError(m)
-        deaths_births = mp.Queue()
-        new_positions = mp.Queue()
-        
     def displayFPSCounter(self):
         self.dispSurface.blit(self.lastfpsSprite,((self.resX-70),25))
 
@@ -168,7 +160,6 @@ class Manager():
         self.clock = p.time.Clock()
         notQuit = True
         p.init()
-        
         mapImp = p.image.load(self.evolution.map.mapImgPath)
         self.dispSurface.blit(mapImp,(0,0))
         self.evolution.update() 
@@ -176,14 +167,12 @@ class Manager():
             for event in p.event.get():
                 if event.type == QUIT:
                     notQuit = False
-            
                 if event.type == p.KEYDOWN:
                     if event.key == p.K_ESCAPE:
                         notQuit = False 
                     if event.key == p.K_UP or event.key == 13:
                         self.show_graph =  not self.show_graph         
             self.dispSurface.blit(mapImp,(0,0))
-                 
             self.evolution.update()
             self.storm_animator.update()
             if self.show_graph:
@@ -193,7 +182,6 @@ class Manager():
                 self.updateFPScounter()
             else:
                 self.displayFPSCounter()     
-            
             p.display.update()    
             self.clock.tick(self.conf["fps"])    
 

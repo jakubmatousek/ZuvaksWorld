@@ -7,6 +7,7 @@ from probabilityTools import decideBasedOnProbability
 
 class Cloud():
     '''trida mraku'''
+
     def __init__(self):
         super(Cloud, self).__init__()
         try:
@@ -51,7 +52,8 @@ class StormAnimator():
         self.init_cloud()
 
     def get_vector(self):
-        #vrati vector zacatecni a konecne pozice drahy bourky
+        """vrati vector zacatecni a konecne pozice drahy bourky"""
+
         x = self.end_pos[0] - self.start_pos[0]    
         y = self.end_pos[1] - self.start_pos[1]    
         return [x,y]
@@ -76,7 +78,8 @@ class StormAnimator():
 
 
     def init_cloud(self):
-        #nacteni obrazku mraku ze souboru
+        """nacteni obrazku mraku ze souboru"""
+
         try:
             imgs = glob.glob('textures/clouds/big_ones/*.png')
         except:
@@ -93,7 +96,8 @@ class StormAnimator():
                       (0,0))
 
     def next_pos(self):
-        #zmeni pozici mraku
+        """zmeni pozici mraku"""
+
         progress = self.frame_num / self.frames
         prog_vector = [int(self.vector[0]*progress),
                        int(self.vector[1]*progress)]
@@ -103,7 +107,8 @@ class StormAnimator():
         return pos
             
     def pick_edges_of_matrix(self):
-        #nahodne vybere drahu bourky
+        """nahodne vybere drahu bourky"""
+
         matrX = self.map_size_x 
         matrY = self.map_size_y 
         min = int((self.size * -1) )
@@ -132,6 +137,7 @@ class StormAnimator():
         return op
 
 def grid_to_pix(self,pos):
-    #prevod jednotek
+    """prevod jednotek"""
+    
     return [pos[0]*self.ts,
         pos[1]*self.ts]         

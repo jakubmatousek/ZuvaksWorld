@@ -1,5 +1,6 @@
 class fertileTile():
     '''Dlazdice s urodnymi policky'''
+
     def __init__(self,pos,fertility,greenPixels):
         if not betweenZeroAndOne(fertility) or not betweenZeroAndOne(greenPixels):
             raise ValueError()
@@ -12,6 +13,7 @@ class fertileTile():
 
 def betweenZeroAndOne(num):
     '''validaci metoda'''
+    
     if num >= 0 and num <= 1:
         return True
     else:

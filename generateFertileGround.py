@@ -5,6 +5,7 @@ import random as r
 
 for i in range(1,6):
     '''generovani dlazdic mapy, dlazdice se ukladaji jako .png do slozky'''
+    
     imgPath = f"../ground{i+1}.png"
     for ii in range(1,101):
         img = Image.open(imgPath)

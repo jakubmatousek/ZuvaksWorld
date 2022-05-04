@@ -2,7 +2,8 @@
 from pos import Pos
 
 def getPositionsOfWrapingPoints(sizeX,sizeY,point,radius=1):
-    """tato funkce vrati indexy vsech okolnich bodu v 2d matrixu.
+    """
+       tato funkce vrati indexy vsech okolnich bodu v 2d matrixu.
        pozice vrati jako objekty Pos.py
     """
 
@@ -41,6 +42,7 @@ def printPositions(posList):
 
 def pos_of_wrapping_points_list_format(sizeX,sizeY,point,radius=1):
     """tato funkce vrati indexy vsech okolnich bodu v 2d matrixu v [x,y] formatu"""
+
     positions = []
     sqSideSize  = radius*2+1
     startX = point[0]-radius
@@ -66,6 +68,7 @@ def pos_of_wrapping_points_list_format(sizeX,sizeY,point,radius=1):
 
 def most_balanced(elements):
     '''tato symetricky usporadane hodnoty radku v matrixu'''
+
     topN = 10**8
     winIndex = None
     for e in elements:

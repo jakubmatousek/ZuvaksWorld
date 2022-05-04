@@ -8,7 +8,6 @@ import glob
 import matplotlib.pyplot as plt
 from perlin_noise import PerlinNoise
 from customErrors import *
-from tools import *
 
 
 fg_checked = False
@@ -211,7 +210,7 @@ def perlinCloud(size,gradient_img=None,t=None):
         try:
             gImg = Image.open('textures/perlin_resources/gradient.jpeg')
         except:
-            checkFile('textures/perlin_resources/gradient.jpeg')    
+            raise FileError('textures/perlin_resources/gradient.jpeg not found')    
     else:
         gImg = gradient_img        
     gImg = gImg.convert('RGB')
@@ -346,6 +345,3 @@ def rnd_invert(n):
     return n    
 
     
-if __name__ == '__main__':
-    for x in range(200):
-        joined_clouds_from_folder()
