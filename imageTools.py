@@ -287,10 +287,8 @@ def pickCornerOfMatrix(matrX,matrY):
 
 def pickEdgeOfMatrix(matrX,matrY):
     '''vybere stranu matrixu'''
-    x = random.randint(0,
-                       matrX-1)
-    y = random.randint(0,
-                       matrY-1)
+    x = random.randint(0, matrX-1)
+    y = random.randint(0, matrY-1)
     return [x,y]
 
 def joined_clouds_from_folder():

@@ -138,9 +138,9 @@ class Manager():
                 self.graph_img,
                 self.graph_pos
             )
-        except:
+            self.update_graph()
+        except:    
             pass        
-        self.update_graph()
 
     def update_graph(self):
         #nacist aktualizovany graf od paralelniho procesu a nacist do pameti

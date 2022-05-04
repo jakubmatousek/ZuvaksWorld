@@ -42,8 +42,6 @@ class Zuvak(pygame.sprite.Sprite):
         self.fought_rounds = 0
         self.oponent_pos = None
         self.oponent_obj = None
-        # po zrozeni ma zuvak v tukovem ulozisti energii na pocet dnu/cyklu, kolik je uvedeno v conf.json souboru
-
     def setPos(self,pos):
         self.pos = pos
 
