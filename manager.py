@@ -4,7 +4,7 @@ from evolution import Evolution
 import json
 from customErrors import *
 import time
-from evolutionTasks import *
+#from evolutionTasks import *
 from food import Food
 from workers import FoodWorker
 from workers import GraphMaker

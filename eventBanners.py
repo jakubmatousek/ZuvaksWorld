@@ -156,10 +156,6 @@ def getConfig():
         raise FileNotFoundError("config file not found")
     return conf
 
-if __name__ == '__main__':
-    eb = textEventBanner(100,[0,0],'cuus',10)
-    for x in range(eb.lengthInCycles):
-        eb.nextCycle()
-        print(eb.currentCycle)
+
 
 

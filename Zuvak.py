@@ -81,7 +81,6 @@ class Zuvak(pygame.sprite.Sprite):
         self.vector_to_oponent = [self.oponent_obj.pos[0]*self.ts - self.pos[0]*self.ts,
                                  self.oponent_obj.pos[1]*self.ts - self.pos[1]*self.ts]
             
-
     def updateSize(self):
         newSize = self.age*self.growPerCycle
         if self.ts*newSize<=3:
@@ -97,7 +96,6 @@ class Zuvak(pygame.sprite.Sprite):
                     (0,0))
         self.surf = newSurf
         
-
     def applyColorToSprite(self):
         blue = (63, 0, 255)
         red = (220,20,60)
@@ -105,10 +103,12 @@ class Zuvak(pygame.sprite.Sprite):
         for point in eyePoints:
             pos = (point[0],point[1])
             self.img.putpixel(pos,self.eyeColor)
+
         coloredStripHeight = self.colorEnd.y - self.colorStart.y
         coloredStripWidth = self.colorEnd.x - self.colorStart.x
         iqPixels = self.iq/(self.iq+self.agresivity+1e-10)
         iqPixels = round(coloredStripHeight*iqPixels)
+
         for i in range(coloredStripHeight):
             for ii in range(coloredStripWidth):
                 x = self.colorStart.x+ii
@@ -159,11 +159,8 @@ class Zuvak(pygame.sprite.Sprite):
         childAgresivity  = combineZuvaksAttrs(self.agresivity,
                                               partnerZuvak.agresivity,
                                               self.mutationRange)
-        parentsEyeColor = [self.eyeColor,
-                           partnerZuvak.eyeColor] 
-        newZuvak = Zuvak(childIq,
-                         childSize,
-                         childAgresivity)
+        parentsEyeColor = [self.eyeColor, partnerZuvak.eyeColor] 
+        newZuvak = Zuvak(childIq, childSize, childAgresivity)
         newZuvak.eyeColor = random.choice(parentsEyeColor)
         return newZuvak
 
